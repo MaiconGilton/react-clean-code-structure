@@ -1,12 +1,12 @@
 # React Clean Code Structure
 
-React Clean Code Structure creates a boilerplate folder structure based on Presentational/Container code pattern for React/React Native.
+Create a boilerplate folder structure based on Presentational/Container code pattern for React/React Native.
 
 ## Features
 
-This extension provides two commands, accessible in the explorer context menu and in the command palette.
+This extension is accessible in the explorer context menu as shown bellow:
 
-Command palette:
+<img src="gif.gif" width="800px"/>
 
 ## Requirements
 
