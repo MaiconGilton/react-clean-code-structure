@@ -30,18 +30,26 @@ export function activate(context: vscode.ExtensionContext) {
                 let newUri = vscode.Uri.file(uri.path + '/' + name);
                 await vscode.workspace.fs.createDirectory(newUri);
 
+                //Create components folder
+                let path = vscode.Uri.file(newUri.path + "/components");
+                await vscode.workspace.fs.createDirectory(path);
+
+                //Create constants file
+                path = vscode.Uri.file(newUri.path + "/constants.ts");
+                await vscode.workspace.fs.writeFile(path, Buffer.from(''));
+
                 //Create the index.tsx
                 try {
-                    let _uri = vscode.Uri.file(newUri.path + "/index.tsx");
-                    await vscode.workspace.fs.writeFile(_uri, Buffer.from(generateIndex(name)));
+                    path = vscode.Uri.file(newUri.path + "/index.ts");
+                    await vscode.workspace.fs.writeFile(path, Buffer.from(generateIndex(name)));
                 } catch (error) {
                     vscode.window.showInformationMessage(error.message);
                 }
 
                 //Create the view component
                 try {
-                    let _uri = vscode.Uri.file(`${newUri.path}/${name}View.tsx`);
-                    await vscode.workspace.fs.writeFile(_uri, Buffer.from(
+                    path = vscode.Uri.file(`${newUri.path}/${name}View.tsx`);
+                    await vscode.workspace.fs.writeFile(path, Buffer.from(
                         generateContentView(name, slug, reactType)
                     ));
                 } catch (error) {
@@ -50,8 +58,8 @@ export function activate(context: vscode.ExtensionContext) {
 
                 //Create the container component
                 try {
-                    let _uri = vscode.Uri.file(`${newUri.path}/${name}Container.tsx`);
-                    await vscode.workspace.fs.writeFile(_uri, Buffer.from(
+                    path = vscode.Uri.file(`${newUri.path}/${name}Container.tsx`);
+                    await vscode.workspace.fs.writeFile(path, Buffer.from(
                         generateContentContainer(name)
                     ));
                 } catch (error) {
@@ -61,9 +69,9 @@ export function activate(context: vscode.ExtensionContext) {
                 if (reactType === 'React') {
                     //Create style.scss
                     try {
-                        let _uri = vscode.Uri.file(`${newUri.path}/${slug}.scss`);
+                        path = vscode.Uri.file(`${newUri.path}/${slug}.scss`);
                         let content = `.${slug}{}`;
-                        await vscode.workspace.fs.writeFile(_uri, Buffer.from(content));
+                        await vscode.workspace.fs.writeFile(path, Buffer.from(content));
                     } catch (error) {
                         vscode.window.showInformationMessage(error.message);
                     }
