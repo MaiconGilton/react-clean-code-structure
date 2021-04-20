@@ -6,7 +6,7 @@ function parseComponentName(componentName: string) {
 
 function generateIndex(name: string) {
     let content = [
-        `import { ${name}Container as ${name} } from './${name}Container'`,
+        `import ${name}Container as ${name} from './${name}Container'`,
         `export default ${name}`
     ];
     return content.join('\n');
@@ -30,7 +30,7 @@ function generateContentView(name: string, slug: string, stack: string) {
             `} \n`,
             `${name}View.defaultProps = {\n`,
             `} \n`,
-            `export {${name}View};\n`
+            `export default ${name}View;\n`
         ];
 
     } else {
@@ -62,7 +62,7 @@ function generateContentView(name: string, slug: string, stack: string) {
 function generateContentContainer(name: string) {
     let content = [
         `import React, { FC } from 'react';`,
-        `import {${name}View} from './${name}View';\n`,
+        `import ${name}View from './${name}View';\n`,
         `interface I${name}ContainerProps {`,
         `}\n`,
         `const ${name}Container=(props: I${name}ContainerProps):FC => {`,
@@ -73,7 +73,7 @@ function generateContentContainer(name: string) {
         `} \n`,
         `${name}Container.defaultProps = {\n`,
         `} \n`,
-        `export {${name}Container};\n`
+        `export default ${name}Container;\n`
     ];
 
     return content.join('\n');
