@@ -5,8 +5,11 @@ function parseComponentName(componentName: string) {
 }
 
 function generateIndex(name: string) {
-    let content = `export { default as ${name} } from './${name}Container'`;
-    return content;
+    let content = [
+        `import { default as ${name} } from './${name}Container'`,
+        `export default ${name}`,
+    ];
+    return content.join('\n');
 }
 
 function generateContentView(name: string, slug: string, stack: string) {
