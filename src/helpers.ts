@@ -6,7 +6,7 @@ function parseComponentName(componentName: string) {
 
 function generateIndex(name: string) {
     let content = [
-        `import { default as ${name} } from './${name}Container'`,
+        `import ${name} from './${name}Container'`,
         `export default ${name}`,
     ];
     return content.join('\n');
@@ -17,11 +17,11 @@ function generateContentView(name: string, slug: string, stack: string) {
 
     if (stack === 'React') {
         content = [
-            `import React, { FC } from 'react';`,
+            `import React from 'react';`,
             `import './${slug}.scss';\n`,
-            `interface I${name}ViewProps {`,
+            `export interface I${name}ViewProps {`,
             `}\n`,
-            `const ${name}View = (props: I${name}ViewProps): FC => {`,
+            `const ${name}View = (props: I${name}ViewProps) => {`,
             `   const { } = props\n`,
             `   return (`,
             `   <div className='${slug}'>\n`,
@@ -35,11 +35,11 @@ function generateContentView(name: string, slug: string, stack: string) {
 
     } else {
         content = [
-            `import React, { FC } from 'react';`,
+            `import React from 'react';`,
             `import { View, StyleSheet } from 'react-native';\n`,
-            `interface I${name}ViewProps {`,
+            `export interface I${name}ViewProps {`,
             `}\n`,
-            `const ${name}View = (props: I${name}ViewProps): FC => {`,
+            `const ${name}View = (props: I${name}ViewProps) => {`,
             `   const { } = props\n`,
             `   return (`,
             `   <View style={styles.container}>\n`,
@@ -62,13 +62,13 @@ function generateContentView(name: string, slug: string, stack: string) {
 function generateContentContainer(name: string) {
     let content = [
         `import React, { FC } from 'react';`,
-        `import ${name}View from './${name}View';\n`,
+        `import ${name}View, {I${name}ViewProps} from './${name}View';\n`,
         `interface I${name}ContainerProps {`,
         `}\n`,
         `const ${name}Container=(props: I${name}ContainerProps):FC => {`,
         `   const { } = props\n`,
-        `   const passProps = {\n`,
-        `   }`,
+        `   const passProps: I${name}ViewProps = {\n`,
+        `   }\n`,
         `   return <${name}View {...passProps}/>`,
         `} \n`,
         `${name}Container.defaultProps = {\n`,
