@@ -19,8 +19,7 @@ function generateContentView(name: string, slug: string, stack: string) {
         content = [
             `import React from 'react';`,
             `import './${slug}.scss';\n`,
-            `export interface I${name}ViewProps {`,
-            `}\n`,
+            `import {I${name}ViewProps} from './${name}Container';\n`,
             `const ${name}View = (props: I${name}ViewProps) => {`,
             `   const { } = props\n`,
             `   return (`,
@@ -36,9 +35,8 @@ function generateContentView(name: string, slug: string, stack: string) {
     } else {
         content = [
             `import React from 'react';`,
-            `import { View, StyleSheet } from 'react-native';\n`,
-            `export interface I${name}ViewProps {`,
-            `}\n`,
+            `import { View, StyleSheet } from 'react-native';`,
+            `import {I${name}ViewProps} from './${name}Container';\n`,
             `const ${name}View = (props: I${name}ViewProps) => {`,
             `   const { } = props\n`,
             `   return (`,
@@ -61,11 +59,13 @@ function generateContentView(name: string, slug: string, stack: string) {
 
 function generateContentContainer(name: string) {
     let content = [
-        `import React, { FC } from 'react';`,
-        `import ${name}View, {I${name}ViewProps} from './${name}View';\n`,
+        `import React from 'react';`,
+        `import ${name}View from './${name}View';\n`,
         `interface I${name}ContainerProps {`,
         `}\n`,
-        `const ${name}Container=(props: I${name}ContainerProps):FC => {`,
+        `export interface I${name}ViewProps {`,
+        `}\n`,
+        `const ${name}Container=(props: I${name}ContainerProps) => {`,
         `   const { } = props\n`,
         `   const passProps: I${name}ViewProps = {\n`,
         `   }\n`,
