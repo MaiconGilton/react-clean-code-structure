@@ -2,7 +2,7 @@
     "name": "react-clean-code-structure",
     "displayName": "React Clean Code Structure",
     "description": "Create a boilerplate folder structure based on Presentational/Container code pattern for React/React Native.",
-    "version": "0.0.7",
+    "version": "0.0.8",
     "engines": {
         "vscode": "^1.55.0"
     },
